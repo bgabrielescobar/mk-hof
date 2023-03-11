@@ -1,21 +1,22 @@
-Mermaid Kingdom Heroes of Discordia
+# Mermaid's Protector RPG
 
-Descripción del juego
+Mermaid's Protector RPG is an RPG game where you have to farm enemies to protect the mermaid queen. The game includes fights against registered players in Discord and worldwide battles.
 
-Mermaid Kingdom Heroes of Discordia es un juego de rol donde el jugador asume el papel de un guerrero, arquero o mago que debe proteger a la reina mermaid de los enemigos que la acechan. El juego incluye peleas contra jugadores registrados en el discord y peleas mundiales.
+## Gameplay
 
-El juego se basa en comandos de Discord, lo que significa que se puede jugar desde el chat de un servidor de Discord.
+The game is based on commands that you can use in Discord. Here are the available commands:
 
-Gameplay
-El juego se juega a través de comandos, que se ejecutan en el chat del servidor de Discord. Estos son algunos de los comandos principales:
+- `!create`: You can create your character, and you can choose between warrior, archer, and mage.
+- `!profile`: You can see your progress, level, experience, and statistics.
+- `!farm`: You can fight against enemies in different zones.
+- `!shop`: You can use your fragments to improve your stats.
 
-!create: con este comando puedes crear tu personaje. Puedes elegir entre guerrero, arquero y mago.
+Be careful which enemies you face, as if you die, you will have to wait an hour before you can play again!
 
-!profile: con este comando podrás ver tu progreso de nivel, experiencia y estadísticas.
+## Design
 
-!farm: con este comando podrás pelear con los enemigos en diferentes zonas. Ten cuidado al elegir a qué enemigo te enfrentas, si mueres tendrás que esperar una hora para poder jugar de nuevo.
+To play the game, you need to have a Discord account and join the server where the game is hosted. Once you are in the server, you can use the commands described above to play the game.
 
-!shop: con este comando podrás mejorar fragmentos y mejorar tus estadísticas.
+## License
 
-Extra información
-Ten en cuenta que debes elegir sabiamente a tus enemigos, ya que si mueres tendrás que esperar una hora antes de poder volver a jugar.
+This project is licensed under the [MIT License](https://github.com/yourusername/mermaids-protector-rpg/blob/main/LICENSE).
