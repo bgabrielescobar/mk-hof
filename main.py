@@ -1,34 +1,35 @@
 import os
-import discord
 import time
+import io
 from api.command_manager import CommandManager
-from api.game.manager.file_manager import *
+#from api.game.manager.file_manager import *
+import discord
 
 intents = discord.Intents.default()
 intents.message_content = True
 intents.presences = True
 intents.members = True
-client = discord.Client(intents=intents, description="No se que estoy haciendo")
+client = discord.Client(intents=intents)
 
 channel_shop = 1066866946403999835 # test 1
 
-@client.event
-async def on_presence_update(before, after):
+# @client.event
+# async def on_presence_update(before, after):
 
-    if before.status != after.status:
+#     if before.status != after.status:
 
-        channel = client.get_channel(1073476897972957246)
+#         channel = client.get_channel(1073476897972957246)
 
-        users = FileManager.get_json(FileManager.USERS_JSON)
+#         #users = FileManager.get_json(FileManager.USERS_JSON)
 
-        total_users = users.keys()
+#         total_users = users.keys()
 
-        await channel.edit(name=f"👤{len(total_users)}")
+#         await channel.edit(name=f"👤{len(total_users)}")
 
 @client.event
 async def on_message(message):
 
-  inicio = time.time()
+  #inicio = time.time()
   
   if message.author.bot:
     return
@@ -40,20 +41,21 @@ async def on_message(message):
       'create': ['⚔','🏹','🧙‍♂️']
     }
 
-    [img_generated, command] = CommandManager().command_selector(message)
-
+    [image_bytes, command, file_name] = CommandManager().command_selector(message)
+    
     if command in emoji_list.keys():
 
-      message = await client.get_channel(channel_shop).send(file=discord.File(img_generated))
+      message = await client.get_channel(channel_shop).send(file=discord.File(image_bytes))
       
       for emoji in emoji_list[command]:
         await message.add_reaction(emoji)
 
-    elif img_generated != "":
-      await message.channel.send(file=discord.File(img_generated))
+    elif image_bytes != "":
+      
+      await message.channel.send(message.author.mention, file=discord.File(image_bytes, file_name))
 
-  fin = time.time()
-  print(fin-inicio)
+  #fin = time.time()
+  #print(fin-inicio)
 
 @client.event
 async def on_reaction_add(reaction, user):
@@ -73,7 +75,7 @@ async def on_reaction_add(reaction, user):
       str_reaction_emoji = str(reaction.emoji)
 
       if str_reaction_emoji in emoji_list.keys():
-        img_generated = CommandManager().emoji_selector(emoji_list[str_reaction_emoji], str(user))
-        await user.send(file=discord.File(img_generated))
+        img_generated = CommandManager.emoji_selector(emoji_list[str_reaction_emoji], str(user))
+        await user.send(file=discord.File(io.BytesIO(img_generated), 'imagen.png'))
 
-client.run('MTA2NjY4ODQ5MDY0Mjg3MDMyMg.GiC9bU.bdlKHVfR0UAwQA_dqLbEGIQ-XRmYzXP9eIUf9U')
+client.run('MTA2NjY4ODQ5MDY0Mjg3MDMyMg.GFMSjR.4aASwsuWOOy3dZuFjcPcAxLi5gILxIiHiCp3Vk')

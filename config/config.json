@@ -1,66 +1,69 @@
 {
 	"server-name": "❤Mermeladas❤",
-	"exp-level": [100, 195, 329, 965, 985, 1185, 1321, 1362, 1739, 2428, 3175, 3618, 3802, 4446, 5362, 5868, 6409, 6500, 7609, 8098, 8755, 8847, 9271, 9494, 9858, 10052, 10735, 11046, 11456, 12136, 12906, 13483, 13746, 14242, 14288, 14467, 14639, 14656, 15095, 15323, 15468, 16161, 16626, 16646, 17605, 18294, 18481, 18603, 19060, 19440, 19959, 20335, 20372, 20796, 21255, 21894, 22303, 22350, 22741, 23293, 24000, 24098, 24132, 24221, 24316, 24802, 25202, 25269, 25454, 25802, 26084, 26067, 26091, 26532, 26998, 27659, 28041, 28530, 28707, 28806, 29121, 29313, 29836, 29989, 30479, 31240, 31407, 31670, 31963, 32322, 32426, 32819, 500000],
+	"exp-level": [100, 195, 329, 965, 985, 1185, 1321, 1362, 1739, 2428, 3175, 3618, 3802, 4446, 5362, 5868, 6409, 6500, 7609, 8098, 8755, 8847, 9271, 9494, 9858, 10052, 10735, 11046, 11456, 12136, 12906, 13483, 13746, 14242, 14288, 14467, 14639, 14656, 15095, 15323, 15468, 16161, 16626, 16646, 17605, 18294, 18481, 18603, 19060, 19440, 19959, 20335, 20372, 20796, 21255, 21894, 22303, 22350, 22741, 23293, 24000, 24098, 24132, 24221, 24316, 24802, 25202, 25269, 25454, 25802, 26084, 26067, 26091, 26532, 26998, 27659, 28041, 28530, 28707, 28806, 29121, 29313, 29836, 29989, 30479, 31240, 31407, 31670, 31963, 32322, 32426, 32819, 500000, 600000, 700000, 800000, 9000000,  1111111111111],
 	"channel": "Rpg",
 	"classes": {
 		"create":{
-			"warrior": {"attack": 5, "defense": 5, "life": 5, "crit": 25, "dodge": 25, "path-img": "assets/player/warrior_battle.png"},
-			"ranger": {"attack": 5, "defense": 5, "life": 5, "crit": 25, "dodge": 25, "path-img": "assets/player/ranger_battle.png"},
-			"mage": {"attack": 5, "defense": 5, "life": 5, "crit": 25, "dodge": 25, "path-img": "assets/player/mage_battle.png"}
+			"warrior": {"attack": 3, "defense": 6, "life": 5, "crit": 30, "dodge": 20, "path-img": "assets/player/warrior_battle.png"},
+			"ranger": {"attack": 4, "defense": 2, "life": 3, "crit": 10, "dodge": 45, "path-img": "assets/player/ranger_battle.png"},
+			"mage": {"attack": 5, "defense": 2, "life": 4, "crit": 45, "dodge": 10, "path-img": "assets/player/mage_battle.png"}
 		}, 
 		"lvl_up": {
-			"warrior": {"attack": 2, "defense": 3, "life": 5},
-			"ranger": {"attack": 2, "defense": 3, "life": 5},
-			"marge": {"attack": 2, "defense": 3, "life": 5}
+			"warrior": {"attack": 2, "defense": 4, "life": 3},
+			"ranger": {"attack": 3, "defense": 2, "life": 2},
+			"mage": {"attack": 4, "defense": 1, "life": 2}
 		}
 		},
 	"enemys": {
 		"1": [
 			{
 				"name": "Angry Bones",
-				"attack": 8,
-				"defense": 1, 
-				"max-life": 15,
-				"current-life": 15,
-				"crit": 5,
+				"attack": 7,
+				"defense": 0, 
+				"max-life": 14,
+				"current-life": 14,
+				"crit": 20,
+				"dodge": 5,
 				"bounty-gold": 5,
 				"bounty-exp": 20,
 				"rune-drop-rate" : 25,
 				"rune-drop": "3",
 				"is-rune-drop": 0,
 				"dmg-taken": 0,
-				"path-profile-img": "assets/enemys/profile/enemy_profile_1.png",
-				"path-tiny-img": "assets/enemys/1/angry-bones.png"
+				"path-profile-img": "assets/enemys/1/angry-bones-profile.png",
+				"path-img": "assets/enemys/1/angry-bones.png"
 			},
 			{
 				"name": "Afedo",
-				"attack": 6,
-				"defense": 1, 
-				"max-life": 8,
-				"current-life": 8,
-				"crit": 10,
+				"attack": 4,
+				"defense": -1, 
+				"max-life": 5,
+				"current-life": 5,
+				"crit": 30,
+				"dodge": 5,
 				"bounty-gold": 5,
 				"bounty-exp": 40,
 				"rune-drop-rate" : 25,
 				"rune-drop": "2",
 				"dmg-taken": 0,
-				"path-profile-img": "assets/enemys/profile/enemy_profile_1.png",
-				"path-tiny-img": "assets/enemys/1/dark-bee.png"
+				"path-profile-img": "assets/enemys/1/dark-bee-profile.png",
+				"path-img": "assets/enemys/1/dark-bee.png"
 			},
 			{
 				"name": "Wild Onion",
 				"attack": 6,
 				"defense": 2, 
-				"max-life": 15,
-				"current-life": 15,
-				"crit": 5,
+				"max-life": 13,
+				"current-life": 13,
+				"crit": 20,
+				"dodge": 5,
 				"bounty-gold": 5,
 				"bounty-exp": 55,
 				"rune-drop-rate" : 25,
 				"rune-drop": "3",
 				"dmg-taken": 0,
-				"path-profile-img": "assets/enemys/profile/enemy_profile_1.png",
-				"path-tiny-img": "assets/enemys/1/wild-onion.png"
+				"path-profile-img": "assets/enemys/1/wild-onion-profile.png",
+				"path-img": "assets/enemys/1/wild-onion.png"
 			},
 			{
 				"name": "Poison Leaf",
@@ -69,28 +72,30 @@
 				"max-life": 25,
 				"current-life": 25,
 				"crit": 10,
+				"dodge": 5,
 				"bounty-gold": 5,
 				"bounty-exp": 60,
 				"rune-drop-rate" : 25,
 				"rune-drop": "2",
 				"dmg-taken": 0,
-				"path-profile-img": "assets/enemys/profile/enemy_profile_1.png",
-				"path-tiny-img": "assets/enemys/1/poison-leaf.png"
+				"path-profile-img": "assets/enemys/1/poison-leaf-profile.png",
+				"path-img": "assets/enemys/1/poison-leaf.png"
 			},
 			{
 				"name": "Bat",
 				"attack": 9,
-				"defense": 0, 
+				"defense": -1, 
 				"max-life": 12,
 				"current-life": 12,
-				"crit": 20,
+				"crit": 35,
+				"dodge": 5,
 				"bounty-gold": 10,
 				"bounty-exp": 70,
 				"rune-drop-rate" : 25,
 				"rune-drop": "1",
 				"dmg-taken": 0,
-				"path-profile-img": "assets/enemys/profile/enemy_profile_1.png",
-				"path-tiny-img": "assets/enemys/1/bat.png"
+				"path-profile-img": "assets/enemys/1/bat-profile.png",
+				"path-img": "assets/enemys/1/bat.png"
 			},
 			{
 				"name": "Slime",
@@ -99,13 +104,14 @@
 				"max-life": 32,
 				"current-life": 32,
 				"crit": 0,
+				"dodge": 5,
 				"bounty-gold": 50,
 				"bounty-exp": 200,
 				"rune-drop-rate" : 25,
 				"rune-drop": "1",
 				"dmg-taken": 0,
-				"path-profile-img": "assets/enemys/profile/enemy_profile_1.png",
-				"path-tiny-img": "assets/enemys/1/slime.png"
+				"path-profile-img": "assets/enemys/1/slime-profile.png",
+				"path-img": "assets/enemys/1/slime.png"
 			}
 		],
 			
@@ -117,13 +123,14 @@
 				"max-life": 25,
 				"current-life": 25,
 				"crit": 20,
+				"dodge": 5,
 				"bounty-gold": 500,
 				"bounty-exp": 2000,
 				"rune-drop-rate" : 25,
 				"rune-drop": "1",
 				"dmg-taken": 0,
-				"path-profile-img": "assets/enemys/profile/enemy_profile_1.png",
-				"path-tiny-img": "assets/enemys/2/angry-bones.png"
+				"path-profile-img": "assets/enemys/2/angry-bones-profile.png",
+				"path-img": "assets/enemys/2/angry-bones.png"
 			},
 			{
 				"name": "Undead Viking",
@@ -132,13 +139,14 @@
 				"max-life": 50,
 				"current-life": 50,
 				"crit": 10,
+				"dodge": 5,
 				"bounty-gold": 50,
 				"bounty-exp": 2000,
 				"rune-drop-rate" : 25,
 				"rune-drop": "1",
 				"dmg-taken": 0,
-				"path-profile-img": "assets/enemys/profile/enemy_profile_1.png",
-				"path-tiny-img": "assets/enemys/2/wild-onion.png"
+				"path-profile-img": "assets/enemys/2/wild-onion-profile.png",
+				"path-img": "assets/enemys/2/wild-onion.png"
 			},
 			{
 				"name": "Fire Slime",
@@ -147,13 +155,14 @@
 				"max-life": 78,
 				"current-life": 78,
 				"crit": 10,
+				"dodge": 5,
 				"bounty-gold": 50,
 				"bounty-exp": 2000,
 				"rune-drop-rate" : 25,
 				"rune-drop": "1",
 				"dmg-taken": 0,
-				"path-profile-img": "assets/enemys/profile/enemy_profile_1.png",
-				"path-tiny-img": "assets/enemys/2/slime.png"
+				"path-profile-img": "assets/enemys/2/slime-profile.png",
+				"path-img": "assets/enemys/2/slime.png"
 			},
 			{
 				"name": "Dungeon Guardian",
@@ -162,13 +171,14 @@
 				"max-life": 123,
 				"current-life": 123,
 				"crit": 10,
+				"dodge": 5,
 				"bounty-gold": 50,
 				"bounty-exp": 2000,
 				"rune-drop-rate" : 25,
 				"rune-drop": "1",
 				"dmg-taken": 0,
-				"path-profile-img": "assets/enemys/profile/enemy_profile_1.png",
-				"path-tiny-img": "assets/enemys/2/slime.png"
+				"path-profile-img": "assets/enemys/2/slime-profile.png",
+				"path-img": "assets/enemys/2/slime.png"
 			},
 			{
 				"name": "Hellbat",
@@ -177,13 +187,14 @@
 				"max-life": 250,
 				"current-life": 250,
 				"crit": 10,
+				"dodge": 5,
 				"bounty-gold": 50,
 				"bounty-exp": 2000,
 				"rune-drop-rate" : 25,
 				"rune-drop": "1",
 				"dmg-taken": 0,
-				"path-profile-img": "assets/enemys/profile/enemy_profile_1.png",
-				"path-tiny-img": "assets/enemys/2/bat.png"
+				"path-profile-img": "assets/enemys/2/bat-profile.png",
+				"path-img": "assets/enemys/2/bat.png"
 			},
 			{
 				"name": "Dark Caster",
@@ -192,30 +203,32 @@
 				"max-life": 125,
 				"current-life": 125,
 				"crit": 10,
+				"dodge": 5,
 				"bounty-gold": 56,
 				"bounty-exp": 6000,
 				"rune-drop-rate" : 25,
 				"rune-drop": "1",
 				"dmg-taken": 0,
-				"path-profile-img": "assets/enemys/profile/enemy_profile_1.png",
-				"path-tiny-img": "assets/enemys/2/poison-leaf.png"
+				"path-profile-img": "assets/enemys/2/poison-leaf-profile.png",
+				"path-img": "assets/enemys/2/poison-leaf.png"
 			}
 		],
 		"3": [
 			{
 				"name": "Demon",
-				"attack": 800,
-				"defense": 300, 
-				"max-life": 250,
-				"current-life": 250,
+				"attack": 500,
+				"defense": 120, 
+				"max-life": 700,
+				"current-life": 700,
 				"crit": 50,
-				"bounty-gold": 5,
-				"bounty-exp": 20,
+				"dodge": 5,
+				"bounty-gold": 50000,
+				"bounty-exp": 100000,
 				"rune-drop-rate" : 25,
 				"rune-drop": "1",
 				"dmg-taken": 0,
-				"path-profile-img": "assets/enemys/profile/enemy_profile_1.png",
-				"path-tiny-img": "assets/enemys/2/dragon.png"
+				"path-profile-img": "assets/enemys/2/dragon-profile.png",
+				"path-img": "assets/enemys/2/dragon.png"
 			}
 		]
 	},

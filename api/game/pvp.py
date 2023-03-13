@@ -2,8 +2,8 @@ import random
 import json
 import imageio
 import glob
-from api.game.manager.file_manager import *
-from api.game.manager.image_manager import *
+#from api.game.manager.file_manager import *
+#from api.game.manager.image_manager import *
 from PIL import Image
 
 class PVP:

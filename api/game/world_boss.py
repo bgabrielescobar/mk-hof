@@ -1,132 +1,143 @@
-import random
 import json
 import config.settings as setting
-import datetime
-import time
+import random
+import config.settings as setting
+from api.game.image_generator.file_manager import *
+from api.game.image_generator.farm_image import *
 
-def farm_wb(user_id, wb):
+class Farm(FarmImage):
 
-  player = get_player(user_id)
-  enemy = generate_wb(wb)
-  
-  ms = datetime.datetime.now()
-  formated_ms = time.mktime(ms.timetuple()) * 1000
-  # USER CAN ATTACK WB
-  if user_id in enemy['participants-cd'] and enemy['participants-cd'][user_id] > formated_ms:
-    return "Aun no puedes atacar!"
-  
-  battle_details = "```ansi"
-
-  # BATTLE GAME LOOP
-
-  battle_details += f"\n[2;37m{user_id} vs {enemy['name']}[0m\n\n"
-  
-  battle_details += f"\n[2;37mNivel: {enemy['lv']}[0m\n\n"
-
-  battle_details += ""
-
-  LIMIT_ROUNDS = 5
   round = 0
+  limit_rounds = 3
+  end_battle = False
+
+  settings = {}
+  farm_image = {}
+
+  is_crit_attack = False
+  is_dodged_attack = False
+  is_player_turn = False
+
+  def __init__(self, player, wb):
+
+    self.player = player
     
-  player = equip_player_items(player)
+    self.generate_wb()
 
+    super().__init__()
 
-  while player["life"] > 0 and enemy["life"] > 0 and round < LIMIT_ROUNDS:
-    
-    round += 1
+  def start(self):
 
-    player, enemy, battle_details, end_battle = battle(player, enemy, battle_details)
-    if end_battle:
-      break;
-    enemy, player, battle_details, end_battle = battle(enemy, player, battle_details)
-    if end_battle:
-      break;
+    self.generate_image('enemy_desc')
 
-  update_wb(enemy, user_id)
+    self.generate_image('battle_presentation')
 
-  if enemy['life'] <= 0:
-    # To Do Bounty
-    battle_details += f"\nRecompensa:\n\u001b[0;33mOro\u001b[0;0m: 0\n\u001b[0;35mExp\u001b[0;0m: 0 ```"
-    #upgrade_user(user_id, enemy['bounty-gold'], enemy['bounty-exp'])
-    return battle_details
-
-  if player['life'] <= 0:  
-    battle_details += f"\n\u001b[0;33mPerdiste\u001b[0;0m```"
-    return battle_details
-  
-  battle_details += f"\n\u001b[0;33m{enemy['name']} Huyó\u001b[0;0m```"
-  
-  return battle_details
-
-def battle(attacker, defender, battle_details):
-    calculated_damage = (attacker['attack'] - defender['defense'])  
-    calculated_damage = calculated_damage if calculated_damage > 0 else 0;
-    defender['life'] -= calculated_damage
-
-    battle_details += f"{attacker['name']} ataca y hace un daño total de: \u001b[0;31m{calculated_damage}\u001b[0;0m\n"
-
-    if defender['life'] <= 0:
-      battle_details += f"\u001b[0;31m{defender['name']} a sido abatido\u001b[0;0m\n"
-      return [attacker, defender, battle_details, 1]
-
+    while self.round < self.limit_rounds:
       
-    battle_details += f"Vida restante de {defender['name']} es \u001b[0;33m{defender['life']}\u001b[0;0m\n"
-    return [attacker, defender, battle_details, 0]
+      self.round += 1
 
-def update_wb(wb, user_id):
-  with open('api/user/db/world-boss.json', 'r') as file:
-    data = json.load(file)
+      self.player, self.enemy = self.battle(self.player, self.enemy)
+      
+      self.is_player_turn = not self.is_player_turn
+      self.generate_image('battle_representation')
 
-  data[wb['name']]['life'] -= data[wb['name']]['life'] - wb['life']
-  data[wb['name']]['participants'].append(user_id)
-  data[wb['name']]['participants-cd'][user_id] = time.mktime((datetime.datetime.now()).timetuple()) * 1000 + 10000
+      if self.end_battle:
+        break;
 
-  with open('api/user/db/world-boss.json', 'w') as file:
-    json.dump(data, file)
+      self.enemy, self.player = self.battle(self.enemy, self.player)
 
-def generate_wb(name_wb):
+      self.is_player_turn = not self.is_player_turn
+      self.generate_image('battle_representation')
 
-  wb = get_wb(name_wb)
+      if self.end_battle:
+        break;
 
-  wb['name'] = name_wb
-  wb["lv"] = "NULL"
+    reward = ''
+    if self.enemy['current-life'] <= 0:
+        reward = self.upgrade_user()
 
-  return wb
+    self.generate_image('post_game', reward)
 
-def upgrade_user(user_id, gold, exp):
-  with open('api/user/db/users.json', 'r') as file:
-    data = json.load(file)
-
-  data[user_id]['gold'] += gold
-  data[user_id]['exp'] += exp
-
-  user_exp_lv = setting.export_settings("exp-level")[data[user_id]['lv'] - 1] #Get first element from array
-
-  if data[user_id]['exp'] >= user_exp_lv:
-    data[user_id]['lv'] += 1
-    data[user_id]['attack'] += 5
-    data[user_id]['defense'] += 5
-    data[user_id]['life'] += 5
+    return self.generate_resume_battle_gif()
     
+    
+  def battle(self, attacker, defender):
+      self.is_dodge_attack = defender['dodge'] >= random.randint(1, 100);
+      if not self.is_dodge_attack: 
+        self.is_crit_attack = attacker['crit'] >= random.randint(1, 100);
+        calculated_damage = (attacker['attack'] - defender['defense']) * 2 if self.is_crit_attack else attacker['attack'] - defender['defense']
+        calculated_damage = calculated_damage if calculated_damage > 0 else 0;
+        defender['current-life'] -= calculated_damage if defender['current-life'] >= calculated_damage else defender['current-life']
+        defender['dmg-taken'] = calculated_damage
 
-  with open('api/user/db/users.json', 'w') as file:
-    json.dump(data, file)
+      if defender['current-life'] <= 0:
+        self.end_battle = True
 
-def get_player(user_id):
-  with open('api/user/db/users.json', 'r') as file:
-    data = json.load(file)
-  return data[user_id]
+      return [attacker, defender]
 
-def get_wb(wb_name):
-  with open('api/user/db/world-boss.json', 'r') as file:
-    data = json.load(file)
-  return data[wb_name]
+  def generate_enemy(self):
 
-def equip_player_items(player):
+    self.settings = setting.export_settings()
 
-  for item in player['items']:
-    player['attack'] += item['attack']
-    player['defense'] += item['defense']
-    player['life'] += item['life']
+    enemy_list = self.settings["enemys"][self.zone]
+    rune_list = self.settings["rune-list"]
 
-  return player
+    total_enemys = len(enemy_list) - 1
+    
+    self.enemy = enemy_list[random.randint(0, total_enemys)]
+    
+    if self.enemy["rune-drop-rate"] <= random.randint(1, 100): 
+      self.enemy['rune-drop'] = '' # No rune drop
+    else:
+      rune_drop = self.enemy['rune-drop']
+      self.enemy['rune-image'] = rune_list[rune_drop]['path-profile']
+
+  def upgrade_user(self):
+
+    user_id = self.player['name']
+
+    users_data = FileManager.get_json(FileManager.USERS_JSON)
+
+    self.player = users_data[user_id]
+
+    self.player['gold'] += self.enemy['bounty-gold']
+    self.player['exp'] += self.enemy['bounty-exp']
+
+    rune_img = "";
+
+    if self.enemy['rune-drop']:
+
+      rune = self.enemy['rune-drop']
+
+      if rune in self.player['items']:
+        self.player['items'][rune] += 1
+      else: 
+        self.player['items'][rune] = 1;
+      
+      rune_img = self.enemy['rune-image']
+
+    user_exp_lv = self.settings["exp-level"][self.player['lv'] - 1] #Get first element from array
+    user_class = self.player['class']
+    stats_up_class = self.settings["classes"]["lvl_up"][user_class]
+    
+    if self.player['exp'] >= user_exp_lv:
+      self.player['lv'] += 1
+      self.player['attack'] += stats_up_class['attack']
+      self.player['defense'] += stats_up_class['defense']
+      self.player['max-life'] += stats_up_class['life']
+      self.player['current-life'] += stats_up_class['life']
+      self.generate_image('player_level_up', stats_up_class)
+
+    users_data[user_id] = self.player
+    
+    with open('api/game/db/users.json', 'w') as file:
+      json.dump(users_data, file, indent=4)
+    return rune_img
+
+# def update_wb(wb, user_id):
+#   with open('api/user/db/world-boss.json', 'r') as file:
+#     data = json.load(file)
+
+#   data[wb['name']]['life'] -= data[wb['name']]['life'] - wb['life']
+#   data[wb['name']]['participants'].append(user_id)
+#   data[wb['name']]['participants-cd'][user_id] = time.mktime((datetime.datetime.now()).timetuple()) * 1000 + 10000
