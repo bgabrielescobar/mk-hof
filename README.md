@@ -17,6 +17,10 @@ Be careful which enemies you face, as if you die, you will have to wait an hour 
 
 To play the game, you need to have a Discord account and join the server where the game is hosted. Once you are in the server, you can use the commands described above to play the game.
 
+## GamePlay 
+![Alt Text](https://media.discordapp.net/attachments/1066866946403999835/1085111496515801108/Image.gif)
+![Alt Text](https://media.discordapp.net/attachments/1066866946403999835/1085111208622956585/Image.gif)
+
 ## License
 
 This project is licensed under the [MIT License](https://github.com/yourusername/mermaids-protector-rpg/blob/main/LICENSE).
